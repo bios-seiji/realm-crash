@@ -14,7 +14,7 @@ import io.realm.annotations.Required;
  */
 
 public class Message extends RealmObject {
-	public static String LORUM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut pharetra ex. Phasellus varius sollicitudin quam. Pellentesque et purus non magna molestie suscipit id eu sapien. Aliquam lobortis velit vitae nunc scelerisque molestie. Integer cursus sed arcu eget bibendum. Vestibulum congue ante id dui luctus porta id sed massa.";
+	public static String LORUM_IPSUM = "Lorem ipsum";// dolor sit amet, consectetur adipiscing elit. Sed ut pharetra ex. Phasellus varius sollicitudin quam. Pellentesque et purus non magna molestie suscipit id eu sapien. Aliquam lobortis velit vitae nunc scelerisque molestie. Integer cursus sed arcu eget bibendum. Vestibulum congue ante id dui luctus porta id sed massa.";
 	public static String MESSAGE_ID_START = "Message";
 
 	@PrimaryKey
@@ -69,9 +69,7 @@ public class Message extends RealmObject {
 		String messageBody = index + " " + LORUM_IPSUM;
 		String id = contactId + MESSAGE_ID_START + index;
 
-		for(int i = 0; i < 2; i++) {
-			messageBody += LORUM_IPSUM;
-		}
+		messageBody += LORUM_IPSUM;
 
 		Message message = realm.createObject(Message.class, id);
 		message.setContactId(contactId);

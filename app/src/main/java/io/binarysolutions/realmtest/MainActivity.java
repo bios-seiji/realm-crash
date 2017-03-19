@@ -27,51 +27,18 @@ import rx.subjects.SerializedSubject;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /**
      * Example configurations
-     * Realm versions: primarially 2.2.1 and 2.3.0
+     * Realm versions: 3.0.0
      * N = Maximum global instances
      *
-     * This can usually crash realm 2.2.1 with the UTF-16 crash immediately. Realm
-     * 2.3.0 seems more resilient but will still often crash (N=7)
+     * One write and one read thread with copyFromRealm will crash on <1000 write iterations N=3
      *
      * NUM_CONTACTS=24
      * NUM_MESSAGES=1000
      * UI_REALM=true
-     * NUM_WRITE_THREADS=2
-     * NUM_CALLBACKS=2
-     * NUM_READ_THREADS=2
+     * NUM_WRITE_THREADS=1
+     * NUM_CALLBACKS=0
+     * NUM_READ_THREADS=1
      * COPY_FROM_REALM=true
-     *
-     * This is our minimum crash case. It will usually crash between 5k -15k write
-     * iterations with a SEG_MAPERR (N=3)
-     *
-     * NUM_CONTACTS=1
-     * NUM_MESSAGES=1
-     * UI_REALM=true
-     * NUM_WRITE_THREADS=1
-     * NUM_CALLBACKS=0
-     * NUM_READ_THREADS=1
-     * COPY_FROM_REALM=false
-     *
-     * This is a general load test that will usually crash around 1k write iterations (N=6)
-     *
-     * NUM_CONTACTS=24
-     * NUM_MESSAGES=1000
-     * UI_REALM=true
-     * NUM_WRITE_THREADS=1
-     * NUM_CALLBACKS=2
-     * NUM_READ_THREADS=2
-     * COPY_FROM_REALM=false
-     *
-     * One write and one read thread, with no copyFromRealm appears to be the heaviest we can
-     * run without crash (tested multiple times to 100k write iterations). (N=2)
-     *
-     * NUM_CONTACTS=24
-     * NUM_MESSAGES=1000
-     * UI_REALM=false
-     * NUM_WRITE_THREADS=1
-     * NUM_CALLBACKS=0
-     * NUM_READ_THREADS=1
-     * COPY_FROM_REALM=false
      *
      */
 
@@ -100,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Number of Rx callbacks to run write transactions on (Schedulers.computation())
      */
-    private static final int NUM_CALLBACKS = 2;
+    private static final int NUM_CALLBACKS = 0;
 
     /**
      * Number of threads to have reads concurrently
      */
-    private static final int NUM_READ_THREADS = 2;
+    private static final int NUM_READ_THREADS = 1;
 
     /**
      * Do we copyFromRealm in the read threads?
